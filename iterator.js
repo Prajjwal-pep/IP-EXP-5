@@ -1,14 +1,27 @@
-function* squareGenerator(numbers) {
-    for (let num of numbers) {
-      yield num ** 2;  
+// Iterator to square numbers in an array
+function squareIterator(arr) {
+  let index = 0;
+  return {
+    next: function() {
+      if (index < arr.length) {
+        const result = { value: arr[index] ** 2, done: false };
+        index++;
+        return result;
+      } else {
+        return { value: undefined, done: true };
+      }
     }
-  }
-  
-  // Usage example:
-  const numbers = [1, 2, 3, 4, 5];
-  const squares = squareGenerator(numbers);
-  
-  for (const square of squares) {
-    console.log(square);  
-  }
+  };
+}
+
+// Example usage:
+const numbers = [1, 2, 3, 4, 5];
+const iterator = squareIterator(numbers);
+
+let iterationResult = iterator.next();
+while (!iterationResult.done) {
+  console.log(iterationResult.value);  // Outputs the square of the numbers
+  iterationResult = iterator.next();
+}
+
   
